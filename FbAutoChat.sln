@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbAutoChat", "FbSpammer\FbAutoChat.csproj", "{69993270-3E9E-436F-83EE-F416F5080E6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbChatApi", "FbChatApi\FbChatApi.csproj", "{5937D331-1E9E-4141-B86C-5A570DA8C93C}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "xJsbase", "xJsbase\xJsbase.njsproj", "{6FFCACC1-66CB-4246-8556-77E2E4CD1E1F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D5EB81DE-49AD-4847-ACF1-52D724B1C5BD}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69993270-3E9E-436F-83EE-F416F5080E6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69993270-3E9E-436F-83EE-F416F5080E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69993270-3E9E-436F-83EE-F416F5080E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69993270-3E9E-436F-83EE-F416F5080E6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5937D331-1E9E-4141-B86C-5A570DA8C93C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5937D331-1E9E-4141-B86C-5A570DA8C93C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5937D331-1E9E-4141-B86C-5A570DA8C93C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5937D331-1E9E-4141-B86C-5A570DA8C93C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FFCACC1-66CB-4246-8556-77E2E4CD1E1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FFCACC1-66CB-4246-8556-77E2E4CD1E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FFCACC1-66CB-4246-8556-77E2E4CD1E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FFCACC1-66CB-4246-8556-77E2E4CD1E1F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

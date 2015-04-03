@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="FbSpammer.Pages.SettingsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             xmlns:viewModels="clr-namespace:FbSpammer.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <viewModels:SettingsViewModel x:Key="Model" />
+    </UserControl.Resources>
+    <Grid Style="{StaticResource ContentRoot}">
+        <Grid.Resources>
+            <ResourceDictionary>
+                <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                    <Setter Property="Margin" Value="5"></Setter>
+                </Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Margin" Value="12,4,12,4"/>
+                </Style>
+            </ResourceDictionary>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.FbKeyLabel}"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Source={StaticResource Model},Path=Email}"></TextBox>
+
+        <TextBlock Grid.Row="1" Grid.Column="0"
+                   Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.PasswordLabel}"/>
+        <PasswordBox Grid.Row="1" Grid.Column="1" Margin="5" />
+
+        <TextBlock Grid.Row="2" Grid.Column="0"
+                   Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.FbKeyLabel}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Source={StaticResource Model},Path=Email}"></TextBox>
+
+    </Grid>
+</UserControl>
