@@ -1,4 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\lucas\documents\visual studio 2013\Projects\FbSpammer\packages\Fizzler.1.0.0\lib\net35\Fizzler.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Users\lucas\Documents\Visual Studio 2013\Projects\fbautochat\FacebookGraphAPI.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Users\lucas\Documents\Visual Studio 2013\Projects\fbautochat\packages\MahApps.Metro.1.1.2.0\lib\net45\MahApps.Metro.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>

@@ -61,11 +61,38 @@ namespace FbSpammer {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Tout les :.
+        /// </summary>
+        public static string EveryTimeLabel {
+            get {
+                return ResourceManager.GetString("EveryTimeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Email.
         /// </summary>
         public static string FbKeyLabel {
             get {
                 return ResourceManager.GetString("FbKeyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Message :.
+        /// </summary>
+        public static string MessageLabel {
+            get {
+                return ResourceManager.GetString("MessageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Name :.
+        /// </summary>
+        public static string NameLabel {
+            get {
+                return ResourceManager.GetString("NameLabel", resourceCulture);
             }
         }
         

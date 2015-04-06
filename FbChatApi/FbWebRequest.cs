@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
+
 namespace FbChatApi
 {
     public class FbWebRequest
@@ -21,6 +22,8 @@ namespace FbChatApi
             Container = new CookieContainer();
         }
 
+
+        
         public  HttpWebRequest CreateGetRequest(string url)
         {
             var client = CreateRequest(url);
@@ -28,6 +31,7 @@ namespace FbChatApi
             
             return client;
         }
+        
         public async Task<HttpWebRequest> CreatePostRequestAsync(string url,IEnumerable<HtmlInput> formInputs )
         {
             var client = CreateRequest(url);
@@ -58,11 +62,33 @@ namespace FbChatApi
             client.Host = url.Replace("https://", "").Split('/')[0];
             client.Headers.Add("Origin", "https://www.facebook.com");
             client.UserAgent =
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/600.3.18 (KHTML, like Gecko) Version/8.0.3 Safari/600.3.18";
-            //client.Connection = "keep-alive";
+                "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.3; WOW64; Trident/7.0)";
             client.Timeout = 60000;
             client.CookieContainer = Container;
             return client;
         }
+
+        #region graph
+        public HttpWebRequest CreateGraphGetRequest(string path)
+        {
+            var req = CreateGraphRequest(string.Format("https://graph.facebook.com/{0}", path));
+            req.Method = WebRequestMethods.Http.Get;
+            return req;
+        }
+
+        private HttpWebRequest CreateGraphRequest(string url)
+        {
+            var client = WebRequest.CreateHttp(url);
+            client.Accept = "text/html, application/xhtml+xml, */*";
+            client.Host = url.Replace("https://", "").Split('/')[0];
+            client.UserAgent =
+                "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.3; WOW64; Trident/7.0)";
+            client.Timeout = 60000;
+            client.CookieContainer = Container;
+            return client;
+        }
+
+
+        #endregion
     }
 }

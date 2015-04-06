@@ -24,5 +24,10 @@ namespace FbSpammer.Pages
         {
             InitializeComponent();
         }
+
+        private void SaveOnClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -2,14 +2,15 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:fbSpammer="clr-namespace:FbSpammer"
+             xmlns:converter="clr-namespace:FbSpammer.Converter"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 
         <ResourceDictionary>
             <fbSpammer:LocalizedStrings x:Key="LocalizedStrings"/>
+            <converter:PathToImageConverter x:Key="ToImageConverter"/>
+            <converter:BoolToVisibilityConverter x:Key="ToVisibilityConverter"/>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.xaml" />
-                <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.Dark.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

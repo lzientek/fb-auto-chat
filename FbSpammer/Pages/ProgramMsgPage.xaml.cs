@@ -27,11 +27,11 @@ namespace FbSpammer.Pages
 
         private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            var fbChat = new FbChatApi.FbLogin("152565@supinfo.com", "FBc'mal.");
+            var fbChat = new FbChatApi.FbChatApi("152565@supinfo.com", "FBc'mal.");
             var result =await fbChat.Login();
             if (result)
             {
-                fbChat.MsgApi.SendMessage(MessageTextBox.Text,ThreadIdTextBox.Text);
+                await fbChat.MessageConnector.SendMessage(MessageTextBox.Text,ThreadIdTextBox.Text);
             }
         }
     }

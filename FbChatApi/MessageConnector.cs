@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FbChatApi
 {
-    public class MsgApi
+    public class MessageConnector
     {
         private int _reqCounter = 1;
         public FbWebRequest WebRequest { get; set; }
@@ -16,12 +17,12 @@ namespace FbChatApi
         public string FbDtsg { get; set; }
 
 
-        public MsgApi(FbWebRequest webRequest)
+        public MessageConnector(FbWebRequest webRequest)
         {
             WebRequest = webRequest;
         }
 
-        public async void SendMessage(string msg, string threadId)
+        public async Task<WebResponse> SendMessage(string msg, string threadId)
         {
             var timestamp = DateTime.Now.ToTimeStamp();
             var d = new DateTime();
@@ -59,6 +60,7 @@ namespace FbChatApi
                     };
             var req = await WebRequest.CreatePostRequestAsync("https://www.facebook.com/ajax/mercury/send_messages.php", form);
             var result = await req.GetResponseAsync();
+            return result;
         }
 
 

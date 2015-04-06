@@ -5,11 +5,67 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Style="{StaticResource ContentRoot}">
-        <ScrollViewer>
-            <StackPanel MinWidth="200">
-                <TextBlock Text="TODO: add content" />
-            </StackPanel>
-        </ScrollViewer>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <!--liste-->
+        <Grid>
+            <ListBox>
+                <ListBoxItem>
+                    <TextBlock Text="fifa faf afiahzfi oafh" />
+                </ListBoxItem>
+                <ListBoxItem>
+                    <TextBlock Text="fifa faf afiahzfi oafh" />
+                </ListBoxItem>
+                <ListBoxItem>
+                    <TextBlock Text="fifa faf afiahzfi oafh" />
+                </ListBoxItem>
+                <ListBoxItem>
+                    <TextBlock Text="fifa faf afiahzfi oafh" />
+                </ListBoxItem>
+            </ListBox>
+        </Grid>
+
+        <!--formulaire-->
+        <Grid Grid.Column="1">
+            <Grid.Resources>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                    <Setter Property="Margin" Value="20,10"/>
+                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="4*" MinWidth="180"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <!--name-->
+            <TextBlock Grid.Column="1" Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.NameLabel}"/>
+            <TextBox Grid.Row="0" Grid.Column="2" Margin="5" />
+
+            <!--periode-->
+            <TextBlock Grid.Row="1"  Grid.Column="1" 
+                       Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.EveryTimeLabel}" />
+
+            <!--message-->
+            <TextBlock Grid.Row="2"  Grid.Column="1" 
+                       Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.MessageLabel}" />
+            <TextBox Grid.Row="2" Grid.Column="2" AcceptsReturn="True" VerticalContentAlignment="Top" Height="75" Margin="5" />
+
+            <!--save-->
+            <Button Grid.Row="4" Grid.Column="2" Click="SaveOnClick" Margin="5,5,5,0"
+                Content="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.SaveLabel}"/>
+
+        </Grid>
     </Grid>
 </UserControl>

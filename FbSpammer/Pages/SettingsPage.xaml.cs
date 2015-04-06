@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FbSpammer.Helper;
 using FbSpammer.ViewModels;
 
 namespace FbSpammer.Pages
@@ -34,6 +35,7 @@ namespace FbSpammer.Pages
         {
             Model.Password = PasswordBox.Password;
             Model.Save();
+            WindowHelper.GetMainWindow().Connect();
         }
     }
 }

@@ -1,30 +1,35 @@
-﻿using FirstFloor.ModernUI.Windows.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using FbAutoChat.Core;
+using FbSpammer.ViewModels;
 
 namespace FbSpammer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : ModernWindow
+    public partial class MainWindow :Elysium.Controls.Window
     {
+
+        public MainViewModel Model { get { return ((MainViewModel)Resources["Model"]); } }
+
+        public FbChatApi.FbChatApi FbApi { get; set; }
         public MainWindow()
         {
             InitializeComponent();
-            
+            Connect();
+        }
+
+        public async void Connect()
+        {
+            var usr = User.Load();
+            FbApi = FbChatConnector.Load(usr);
+            var result = await FbApi.Login();
+            if (result)
+            {
+                //MessageBox.Show(result ? "Connected" : "Error check internet or password and login");
+                Model.ActualUser = await FbApi.UserConnector.GetActualUserAsync();
+                Model.IsConnected = true;
+            }
         }
     }
 }
