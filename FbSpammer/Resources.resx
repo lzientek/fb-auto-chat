@@ -123,4 +123,16 @@
   <data name="PasswordLabel" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="ProgMsgLabel" xml:space="preserve">
+    <value>Programmed messages</value>
+  </data>
+  <data name="RepeatSpamLabel" xml:space="preserve">
+    <value>Repeat Spam</value>
+  </data>
+  <data name="SaveLabel" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
 </root>

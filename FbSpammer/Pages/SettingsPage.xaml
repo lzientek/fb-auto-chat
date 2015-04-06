@@ -43,11 +43,10 @@
 
         <TextBlock Grid.Row="1" Grid.Column="0"
                    Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.PasswordLabel}"/>
-        <PasswordBox Grid.Row="1" Grid.Column="1" Margin="5" />
+        <PasswordBox Name="PasswordBox" Grid.Row="1" Grid.Column="1" Margin="5" />
 
-        <TextBlock Grid.Row="2" Grid.Column="0"
-                   Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.FbKeyLabel}"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Source={StaticResource Model},Path=Email}"></TextBox>
-
+        
+        <Button Grid.Row="6" Grid.Column="1" Click="SaveOnClick" Margin="5,0"
+                Content="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.SaveLabel}"/>
     </Grid>
 </UserControl>

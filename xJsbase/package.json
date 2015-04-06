@@ -1,0 +1,10 @@
+{
+  "name": "xJsbase",
+  "version": "0.0.0",
+  "description": "xJsbase",
+  "main": "app.js",
+  "author": {
+    "name": "lucas",
+    "email": ""
+  }
+}

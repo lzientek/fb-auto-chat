@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D5EB81
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbAutoChat.Core", "FbAutoChat.Core\FbAutoChat.Core.csproj", "{4CD70EAE-893C-4077-890B-BD60A1CF2EC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{6FFCACC1-66CB-4246-8556-77E2E4CD1E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FFCACC1-66CB-4246-8556-77E2E4CD1E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FFCACC1-66CB-4246-8556-77E2E4CD1E1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CD70EAE-893C-4077-890B-BD60A1CF2EC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CD70EAE-893C-4077-890B-BD60A1CF2EC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CD70EAE-893C-4077-890B-BD60A1CF2EC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CD70EAE-893C-4077-890B-BD60A1CF2EC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

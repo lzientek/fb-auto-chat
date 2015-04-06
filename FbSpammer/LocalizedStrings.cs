@@ -8,7 +8,7 @@ namespace FbSpammer
 {
     public class LocalizedStrings
     {
-        private static Resources _localizedResources = new Resources();
+        private static readonly Resources _localizedResources = new Resources();
 
         public Resources LocalizedResources { get { return _localizedResources; } }
     }

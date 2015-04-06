@@ -77,5 +77,41 @@ namespace FbSpammer {
                 return ResourceManager.GetString("PasswordLabel", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Programmed messages.
+        /// </summary>
+        public static string ProgMsgLabel {
+            get {
+                return ResourceManager.GetString("ProgMsgLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Repeat Spam.
+        /// </summary>
+        public static string RepeatSpamLabel {
+            get {
+                return ResourceManager.GetString("RepeatSpamLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Save.
+        /// </summary>
+        public static string SaveLabel {
+            get {
+                return ResourceManager.GetString("SaveLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Settings.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
     }
 }

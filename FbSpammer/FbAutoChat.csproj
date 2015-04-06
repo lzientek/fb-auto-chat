@@ -57,7 +57,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Class1.cs" />
+    <Compile Include="LocalizedStrings.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -106,11 +106,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FbAutoChat.Core\FbAutoChat.Core.csproj">
+      <Project>{4cd70eae-893c-4077-890b-bd60a1cf2ec4}</Project>
+      <Name>FbAutoChat.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FbChatApi\FbChatApi.csproj">
       <Project>{5937d331-1e9e-4141-b86c-5a570da8c93c}</Project>
       <Name>FbChatApi</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
