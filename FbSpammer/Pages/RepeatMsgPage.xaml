@@ -2,9 +2,12 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:FbSpammer.ViewModels"
+             xmlns:userControls="clr-namespace:FbSpammer.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -57,10 +60,16 @@
             <TextBlock Grid.Row="1"  Grid.Column="1" 
                        Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.EveryTimeLabel}" />
 
-            <!--message-->
+              <!--select a user-->
             <TextBlock Grid.Row="2"  Grid.Column="1" 
+                       Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.SelectUserLabel}" />
+
+            <userControls:FbUserSelectUC Grid.Row="2" Grid.Column="2" Margin="5" />
+            
+            <!--message-->
+            <TextBlock Grid.Row="3"  Grid.Column="1" 
                        Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.MessageLabel}" />
-            <TextBox Grid.Row="2" Grid.Column="2" AcceptsReturn="True" VerticalContentAlignment="Top" Height="75" Margin="5" />
+            <TextBox Grid.Row="3" Grid.Column="2" AcceptsReturn="True" VerticalContentAlignment="Top" Height="75" Margin="5" />
 
             <!--save-->
             <Button Grid.Row="4" Grid.Column="2" Click="SaveOnClick" Margin="5,5,5,0"

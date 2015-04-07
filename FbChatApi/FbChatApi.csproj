@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="BaseConverter.cs" />
     <Compile Include="FbChatApi.cs" />
+    <Compile Include="FbSmallUser.cs" />
     <Compile Include="FbUser.cs" />
     <Compile Include="FbWebRequest.cs" />
     <Compile Include="Helper.cs" />

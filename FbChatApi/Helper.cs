@@ -28,5 +28,13 @@ namespace FbChatApi
             var m = clientID;
             return string.Format("<{0}:{1}-{2}@mail.projektitan.com>", k, l, m);
         }
+        public static string GetFrom(string str, string startToken, string endToken)
+        {
+            var start = str.IndexOf(startToken, StringComparison.Ordinal) + startToken.Length;
+            var lastHalf = str.Substring(start);
+            var end = lastHalf.IndexOf(endToken, StringComparison.Ordinal);
+            return lastHalf.Substring(0, end);
+        }
     }
 }
+

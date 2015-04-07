@@ -17,24 +17,26 @@ using FbChatApi;
 using FbSpammer.Helper;
 using FbSpammer.ViewModels;
 
-namespace FbSpammer.Pages
+namespace FbSpammer.UserControls
 {
     /// <summary>
-    /// Interaction logic for Home.xaml
+    /// Logique d'interaction pour FbUserSelectUC.xaml
     /// </summary>
-    public partial class RepeatMsgPage : UserControl
+    public partial class FbUserSelectUC : UserControl
     {
         public UserSelectViewModel Model { get { return ((UserSelectViewModel)Resources["Model"]); } }
 
-        public RepeatMsgPage()
+        public FbUserSelectUC()
         {
             InitializeComponent();
+            WindowHelper.GetMainWindow().FbApi.ConnectionEnd+=FbApi_ConnectionEnd;
             
         }
 
-        private void SaveOnClick(object sender, RoutedEventArgs e)
+        void FbApi_ConnectionEnd(object sender, EventArgs args)
         {
-
+            Model.FbSmallUsers = new ObservableCollection<FbSmallUser>(
+                 WindowHelper.GetMainWindow().FbApi.UserConnector.GetFriendsAsList());
         }
     }
 }

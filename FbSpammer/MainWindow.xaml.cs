@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using FbAutoChat.Core;
 using FbSpammer.ViewModels;
 
@@ -15,14 +16,16 @@ namespace FbSpammer
         public FbChatApi.FbChatApi FbApi { get; set; }
         public MainWindow()
         {
+            var usr = User.Load();
+            FbApi = FbChatConnector.Load(usr);
             InitializeComponent();
             Connect();
+
         }
 
         public async void Connect()
         {
-            var usr = User.Load();
-            FbApi = FbChatConnector.Load(usr);
+            
             var result = await FbApi.Login();
             if (result)
             {
@@ -31,5 +34,10 @@ namespace FbSpammer
                 Model.IsConnected = true;
             }
         }
+
+
+
+     
     }
+
 }

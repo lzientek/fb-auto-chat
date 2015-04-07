@@ -133,6 +133,15 @@ namespace FbSpammer {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à To :.
+        /// </summary>
+        public static string SelectUserLabel {
+            get {
+                return ResourceManager.GetString("SelectUserLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Settings.
         /// </summary>
         public static string Settings {

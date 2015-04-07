@@ -72,7 +72,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\FbUserSelectUC.xaml.cs">
+      <DependentUpon>FbUserSelectUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\UserSelectViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -104,6 +108,10 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Page Include="UserControls\FbUserSelectUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
