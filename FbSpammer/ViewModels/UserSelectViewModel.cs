@@ -15,10 +15,47 @@ namespace FbSpammer.ViewModels
     public class UserSelectViewModel:INotifyPropertyChanged
     {
         private ObservableCollection<FbSmallUser> _fbSmallUsers;
+        private bool _isAdding;
+        private string _addUserId;
+        private FbSmallUser _selectedUser;
 
         public UserSelectViewModel()
         {
+            IsAdding = false;
             FbSmallUsers = new ObservableCollection<FbSmallUser>();
+        }
+
+        public string AddUserId
+        {
+            get { return _addUserId; }
+            set
+            {
+                if (value == _addUserId) return;
+                _addUserId = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public FbSmallUser SelectedUser
+        {
+            get { return _selectedUser; }
+            set
+            {
+                if (Equals(value, _selectedUser)) return;
+                _selectedUser = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsAdding
+        {
+            get { return _isAdding; }
+            set
+            {
+                if (value.Equals(_isAdding)) return;
+                _isAdding = value;
+                OnPropertyChanged();
+            }
         }
 
         public ObservableCollection<FbSmallUser> FbSmallUsers

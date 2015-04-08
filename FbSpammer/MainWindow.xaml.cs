@@ -8,7 +8,7 @@ namespace FbSpammer
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow :Elysium.Controls.Window
+    public partial class MainWindow 
     {
 
         public MainViewModel Model { get { return ((MainViewModel)Resources["Model"]); } }

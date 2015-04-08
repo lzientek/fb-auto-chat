@@ -11,8 +11,34 @@
 
     </UserControl.Resources>
     <Grid>
-        <ComboBox IsEditable="True" 
-                  ItemsSource="{Binding Source={StaticResource Model},Path=FbSmallUsers}">
+        
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+              <!--ajut d'un user-->
+
+
+            <Grid Visibility="{Binding Source={StaticResource Model},Path=IsAdding,Converter={StaticResource ToVisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Margin="0" 
+                           ToolTip="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.userNameOrIdTip}" 
+                           HorizontalAlignment="Right" VerticalAlignment="Center" 
+                           Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.userNameLabel}" />
+                <TextBox Text="{Binding Source={StaticResource Model},Path=AddUserId,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"></TextBox>
+            </Grid>
+
+
+
+        <ComboBox Grid.Column="0" ItemsSource="{Binding Source={StaticResource Model},Path=FbSmallUsers}"
+                   Visibility="{Binding Source={StaticResource Model},Path=IsAdding,Converter={StaticResource ToInVisibilityConverter}}"
+                  SelectedItem="{Binding Source={StaticResource Model},Path=SelectedUser,Mode=TwoWay}"
+                  Name="UserListComboBox" >
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -21,11 +47,13 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="{Binding Path=thumbSrc,Converter={StaticResource ToImageConverter}}" />
-                        <TextBlock Grid.Column="1" Text="{Binding Path=name}" />
+                        <Image Height="30" Source="{Binding Path=thumbSrc,Converter={StaticResource ToImageConverter}}" />
+                        <TextBlock Margin="5,0" VerticalAlignment="Center" Grid.Column="1" Text="{Binding Path=name}" />
                     </Grid>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
+
+        <Button Grid.Column="1" Click="AddAuser">Add</Button>
     </Grid>
 </UserControl>

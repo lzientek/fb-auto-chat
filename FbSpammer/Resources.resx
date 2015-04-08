@@ -147,4 +147,16 @@
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="userNameLabel" xml:space="preserve">
+    <value>Username :</value>
+  </data>
+  <data name="UserNameOrIdNotFound" xml:space="preserve">
+    <value>The username or id wasn't found.</value>
+  </data>
+  <data name="UserNameOrIdNotValid" xml:space="preserve">
+    <value>The username or id isn't valid.</value>
+  </data>
+  <data name="userNameOrIdTip" xml:space="preserve">
+    <value>Enter username or id from your friend.</value>
+  </data>
 </root>

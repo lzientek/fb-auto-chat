@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,19 @@ namespace FbChatApi
             var lastHalf = str.Substring(start);
             var end = lastHalf.IndexOf(endToken, StringComparison.Ordinal);
             return lastHalf.Substring(0, end);
+        }
+
+        public static FbSmallUser ToFbSmallUser(this FbUser fbUser)
+        {
+            return new FbSmallUser
+            {
+                name = fbUser.Name,
+                firstName = fbUser.First_Name,
+                id = fbUser.Id,
+                vanity= fbUser.Username,
+                gender = fbUser.Gender,
+                thumbSrc = fbUser.ProfilePicture
+            };
         }
     }
 }

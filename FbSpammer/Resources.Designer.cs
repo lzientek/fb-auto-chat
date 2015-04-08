@@ -149,5 +149,41 @@ namespace FbSpammer {
                 return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Username :.
+        /// </summary>
+        public static string userNameLabel {
+            get {
+                return ResourceManager.GetString("userNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à The username or id wasn&apos;t found..
+        /// </summary>
+        public static string UserNameOrIdNotFound {
+            get {
+                return ResourceManager.GetString("UserNameOrIdNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à The username or id isn&apos;t valid..
+        /// </summary>
+        public static string UserNameOrIdNotValid {
+            get {
+                return ResourceManager.GetString("UserNameOrIdNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Enter username or id from your friend..
+        /// </summary>
+        public static string userNameOrIdTip {
+            get {
+                return ResourceManager.GetString("userNameOrIdTip", resourceCulture);
+            }
+        }
     }
 }

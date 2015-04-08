@@ -9,9 +9,9 @@
         xmlns:metro="http://schemas.codeplex.com/elysium"
         Title="Facebook auto messenger"   Height="450" Width="750"
         >
-    <Window.Resources>
+    <metro:Window.Resources>
         <viewModels:MainViewModel x:Key="Model"/>
-    </Window.Resources>
+    </metro:Window.Resources>
     <metro:Window.TitleBar>
         <Grid>
             <Grid.ColumnDefinitions>

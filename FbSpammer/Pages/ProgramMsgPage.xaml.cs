@@ -25,7 +25,7 @@ namespace FbSpammer.Pages
             InitializeComponent();
         }
 
-        private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
 
         }

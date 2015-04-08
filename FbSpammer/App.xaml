@@ -10,6 +10,7 @@
             <fbSpammer:LocalizedStrings x:Key="LocalizedStrings"/>
             <converter:PathToImageConverter x:Key="ToImageConverter"/>
             <converter:BoolToVisibilityConverter x:Key="ToVisibilityConverter"/>
+            <converter:BoolToInVisibilityConverter x:Key="ToInVisibilityConverter"/>
             <ResourceDictionary.MergedDictionaries>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using FbChatApi;
 using FbSpammer.Helper;
 using FbSpammer.ViewModels;
@@ -29,14 +18,49 @@ namespace FbSpammer.UserControls
         public FbUserSelectUC()
         {
             InitializeComponent();
-            WindowHelper.GetMainWindow().FbApi.ConnectionEnd+=FbApi_ConnectionEnd;
-            
+            WindowHelper.GetMainWindow().FbApi.ConnectionEnd += FbApi_ConnectionEnd;
+
         }
 
         void FbApi_ConnectionEnd(object sender, EventArgs args)
         {
             Model.FbSmallUsers = new ObservableCollection<FbSmallUser>(
                  WindowHelper.GetMainWindow().FbApi.UserConnector.GetFriendsAsList());
+        }
+
+        private async void AddAuser(object sender, RoutedEventArgs e)
+        {
+            if (!Model.IsAdding)
+            {
+                Model.IsAdding = true;
+            }
+            else if (string.IsNullOrWhiteSpace(Model.AddUserId))
+            {
+                Model.IsAdding = false;
+                MessageBox.Show(FbSpammer.Resources.UserNameOrIdNotValid);
+            }
+            else
+            {
+                try
+                {
+                    var window = WindowHelper.GetMainWindow();
+                    var nu =
+                        (await window.FbApi.UserConnector.GetUserAsync(Model.AddUserId))
+                            .ToFbSmallUser();
+                    if (!window.FbApi.UserConnector.Friends.ContainsKey(nu.id))
+                    {
+                        Model.FbSmallUsers.Add(nu);
+                        window.FbApi.UserConnector.Friends.Add(nu.id, nu);
+                    }
+                    Model.SelectedUser = window.FbApi.UserConnector.Friends[nu.id];
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(FbSpammer.Resources.UserNameOrIdNotFound);
+                }
+                Model.IsAdding = false;
+            }
         }
     }
 }

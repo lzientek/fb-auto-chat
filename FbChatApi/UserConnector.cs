@@ -33,6 +33,7 @@ namespace FbChatApi
         {
             return await GetUserAsync(UserId);
         }
+
         public async Task<FbUser> GetUserAsync(string idOrName)
         {
             var req = WebRequest.CreateGraphGetRequest(idOrName);
@@ -43,8 +44,6 @@ namespace FbChatApi
                 var json = JsonConvert.DeserializeObject<FbUser>(val);
                 return json;
             }
-
-            
         }
 
 

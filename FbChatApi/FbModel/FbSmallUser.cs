@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FbChatApi
 {
@@ -10,7 +11,7 @@ namespace FbChatApi
         public string vanity { get; set; }
         public string thumbSrc { get; set; }
         public string uri { get; set; }
-        public int gender { get; set; }
+        public string gender { get; set; }
         public string type { get; set; }
         public bool is_friend { get; set; }
         public object mThumbSrcSmall { get; set; }
@@ -18,5 +19,10 @@ namespace FbChatApi
         public object dir { get; set; }
         public List<string> searchTokens { get; set; }
         public string alternateName { get; set; }
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }
