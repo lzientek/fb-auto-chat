@@ -24,7 +24,7 @@ namespace FbSpammer.Pages
     /// </summary>
     public partial class RepeatMsgPage : UserControl
     {
-        public UserSelectViewModel Model { get { return ((UserSelectViewModel)Resources["Model"]); } }
+        public RepeatMsgViewModel Model { get { return ((RepeatMsgViewModel)Resources["Model"]); } }
 
         public RepeatMsgPage()
         {
@@ -34,7 +34,21 @@ namespace FbSpammer.Pages
 
         private void SaveOnClick(object sender, RoutedEventArgs e)
         {
+            Model.Save();
+        }
 
+        private void AddOnClick(object sender, RoutedEventArgs e)
+        {
+            Model.RepeatMsgs.Add(new RepeatMsgModel());
+        }
+
+        private void DeleteOnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Model.RepeatMsgs.Remove((RepeatMsgModel) RepeatMsgListBox.SelectedItem);
+            }
+            catch (Exception) { }
         }
     }
 }

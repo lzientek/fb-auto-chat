@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using FbChatApi;
+using FbSpammer.Annotations;
 using FbSpammer.Helper;
 using FbSpammer.ViewModels;
 
@@ -13,16 +17,55 @@ namespace FbSpammer.UserControls
     /// </summary>
     public partial class FbUserSelectUC : UserControl
     {
+
+
+
         public UserSelectViewModel Model { get { return ((UserSelectViewModel)Resources["Model"]); } }
 
         public FbUserSelectUC()
         {
             InitializeComponent();
-            WindowHelper.GetMainWindow().FbApi.ConnectionEnd += FbApi_ConnectionEnd;
-
+            WindowHelper.GetMainWindow().FbApi.UserConnector.FriendsLoaded += FbApi_FriendLoad;
+            Model.PropertyChanged += Model_PropertyChanged;
         }
 
-        void FbApi_ConnectionEnd(object sender, EventArgs args)
+        #region dependencies
+        public string SelectedUserId
+        {
+            get
+            {
+                return (string)GetValue(SelectedUserIdProperty);
+            }
+            set
+            {
+                SetValue(SelectedUserIdProperty, value);
+            }
+        }
+
+        public static readonly DependencyProperty SelectedUserIdProperty =
+            DependencyProperty.Register("SelectedUserId", typeof(string), typeof(FbUserSelectUC), new FrameworkPropertyMetadata(
+            null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, PropertyChangedCallback));
+
+        private static void PropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        {
+            var uc = dependencyObject as FbUserSelectUC;
+            if (uc != null)
+            {
+                uc.Model.SelectedUser = uc.Model.FbSmallUsers.FirstOrDefault(user => user.id == uc.SelectedUserId);
+            }
+        }
+
+        #endregion
+
+        void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "SelectedUser" && Model.SelectedUser != null)
+            {
+                SelectedUserId = Model.SelectedUser.id;
+            }
+        }
+
+        void FbApi_FriendLoad(object sender, EventArgs args)
         {
             Model.FbSmallUsers = new ObservableCollection<FbSmallUser>(
                  WindowHelper.GetMainWindow().FbApi.UserConnector.GetFriendsAsList());
@@ -51,6 +94,7 @@ namespace FbSpammer.UserControls
                     {
                         Model.FbSmallUsers.Add(nu);
                         window.FbApi.UserConnector.Friends.Add(nu.id, nu);
+                        window.FbApi.UserConnector.Save();
                     }
                     Model.SelectedUser = window.FbApi.UserConnector.Friends[nu.id];
 
@@ -62,5 +106,6 @@ namespace FbSpammer.UserControls
                 Model.IsAdding = false;
             }
         }
+
     }
 }

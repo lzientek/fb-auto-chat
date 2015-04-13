@@ -7,32 +7,29 @@
              xmlns:userControls="clr-namespace:FbSpammer.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-
-    <Grid>
+    <UserControl.Resources>
+        <viewModels:RepeatMsgViewModel x:Key="Model" />
+    </UserControl.Resources>
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <!--liste-->
         <Grid>
-            <ListBox>
-                <ListBoxItem>
-                    <TextBlock Text="fifa faf afiahzfi oafh" />
-                </ListBoxItem>
-                <ListBoxItem>
-                    <TextBlock Text="fifa faf afiahzfi oafh" />
-                </ListBoxItem>
-                <ListBoxItem>
-                    <TextBlock Text="fifa faf afiahzfi oafh" />
-                </ListBoxItem>
-                <ListBoxItem>
-                    <TextBlock Text="fifa faf afiahzfi oafh" />
-                </ListBoxItem>
-            </ListBox>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ListBox Name="RepeatMsgListBox" ItemsSource="{Binding Source={StaticResource Model},Path=RepeatMsgs}" DisplayMemberPath="Name"/>
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Button Click="AddOnClick" >Add</Button>
+                <Button Click="DeleteOnClick" >Delete</Button>
+            </StackPanel>
         </Grid>
 
         <!--formulaire-->
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" DataContext="{Binding ElementName=RepeatMsgListBox,Path=SelectedItem}">
             <Grid.Resources>
                 <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                     <Setter Property="Margin" Value="20,10"/>
@@ -52,24 +49,27 @@
                 <ColumnDefinition Width="4*" MinWidth="180"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
+            
             <!--name-->
             <TextBlock Grid.Column="1" Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.NameLabel}"/>
-            <TextBox Grid.Row="0" Grid.Column="2" Margin="5" />
+            <TextBox Grid.Row="0" Grid.Column="2" Margin="5"
+                     Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}" />
 
             <!--periode-->
             <TextBlock Grid.Row="1"  Grid.Column="1" 
                        Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.EveryTimeLabel}" />
 
-              <!--select a user-->
-            <TextBlock Grid.Row="2"  Grid.Column="1" 
+            <!--select a user-->
+            <TextBlock Grid.Row="2"  Grid.Column="1" VerticalAlignment="Center"
                        Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.SelectUserLabel}" />
 
-            <userControls:FbUserSelectUC Grid.Row="2" Grid.Column="2" Margin="5" />
-            
+            <userControls:FbUserSelectUC Grid.Row="2" Grid.Column="2" Margin="5" SelectedUserId="{Binding UserId,UpdateSourceTrigger=PropertyChanged}" />
+
             <!--message-->
             <TextBlock Grid.Row="3"  Grid.Column="1" 
                        Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.MessageLabel}" />
-            <TextBox Grid.Row="3" Grid.Column="2" AcceptsReturn="True" VerticalContentAlignment="Top" Height="75" Margin="5" />
+            <TextBox Grid.Row="3" Grid.Column="2" AcceptsReturn="True" VerticalContentAlignment="Top" Height="75" Margin="5"
+                     Text="{Binding Message}"/>
 
             <!--save-->
             <Button Grid.Row="4" Grid.Column="2" Click="SaveOnClick" Margin="5,5,5,0"

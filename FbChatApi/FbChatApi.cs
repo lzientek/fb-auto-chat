@@ -74,6 +74,7 @@ namespace FbChatApi
 
                 UserConnector.LoadSomeFriends(page);
                 IsConnected = true;
+                //WebRequest.Save();
                 OnConnectionEnd();
                 return IsConnected;
             }
@@ -89,6 +90,7 @@ namespace FbChatApi
             var handler = ConnectionEnd;
             if (handler != null) handler(this, null);
         }
+
         private void GetValuesFromPage(string page)
         {
             var rand = new Random();

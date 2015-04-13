@@ -78,6 +78,7 @@
       <DependentUpon>FbUserSelectUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\RepeatMsgViewModel.cs" />
     <Compile Include="ViewModels\UserSelectViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Page Include="MainWindow.xaml">

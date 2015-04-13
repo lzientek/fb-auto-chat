@@ -4,15 +4,16 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-
+using System.Xml.Serialization;
 
 namespace FbChatApi
 {
     public class FbWebRequest
     {
+        private string _FacebookCom;
 
         public CookieContainer Container { get; set; }
 
@@ -20,10 +21,46 @@ namespace FbChatApi
         public FbWebRequest()
         {
             Container = new CookieContainer();
+            _FacebookCom = "https://www.facebook.com/";
         }
 
+        #region persistance ne fonctione pas
 
+        public const string CookieXml = "Cookie.xml";
         
+        public void Save()
+        {
+            
+            var t = new Thread(() =>
+            {
+                XmlSerializer xs = new XmlSerializer(typeof(Cookie[]));
+                using (StreamWriter wr = new StreamWriter(CookieXml))
+                {
+                    xs.Serialize(wr, Container.GetCookies(new Uri(_FacebookCom)).OfType<Cookie>().ToArray());
+                }
+            });
+            t.Start();
+        }
+        
+        private void Load()
+        {
+            try
+            {
+                XmlSerializer xs = new XmlSerializer(typeof(CookieCollection));
+                using (StreamReader rd = new StreamReader(CookieXml))
+                {
+                    var result = xs.Deserialize(rd) as CookieCollection;
+                    if (result != null)
+                    {
+                        Container.Add(result);
+                    }
+                }
+            }
+            catch (Exception){}
+
+        }
+        #endregion
+
         public  HttpWebRequest CreateGetRequest(string url)
         {
             var client = CreateRequest(url);
@@ -58,9 +95,9 @@ namespace FbChatApi
         {
             var client = WebRequest.CreateHttp(url);
             client.ContentType = "application/x-www-form-urlencoded";
-            client.Referer = "https://www.facebook.com/";
+            client.Referer = _FacebookCom;
             client.Host = url.Replace("https://", "").Split('/')[0];
-            client.Headers.Add("Origin", "https://www.facebook.com");
+            client.Headers.Add("Origin", _FacebookCom);
             client.UserAgent =
                 "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.3; WOW64; Trident/7.0)";
             client.Timeout = 60000;

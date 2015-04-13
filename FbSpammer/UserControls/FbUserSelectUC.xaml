@@ -5,35 +5,34 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:FbSpammer.ViewModels"
              mc:Ignorable="d" 
+             x:Name="Control"
              d:DesignHeight="30" d:DesignWidth="300">
     <UserControl.Resources>
         <viewModels:UserSelectViewModel x:Key="Model" />
 
     </UserControl.Resources>
     <Grid>
-        
+
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-              <!--ajut d'un user-->
+        <!--ajut d'un user-->
 
 
-            <Grid Visibility="{Binding Source={StaticResource Model},Path=IsAdding,Converter={StaticResource ToVisibilityConverter}}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Margin="0" 
+        <Grid Visibility="{Binding Source={StaticResource Model},Path=IsAdding,Converter={StaticResource ToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="0" 
                            ToolTip="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.userNameOrIdTip}" 
                            HorizontalAlignment="Right" VerticalAlignment="Center" 
                            Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.userNameLabel}" />
-                <TextBox Text="{Binding Source={StaticResource Model},Path=AddUserId,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"></TextBox>
-            </Grid>
-
-
+            <TextBox Text="{Binding Source={StaticResource Model},Path=AddUserId,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"></TextBox>
+        </Grid>
 
         <ComboBox Grid.Column="0" ItemsSource="{Binding Source={StaticResource Model},Path=FbSmallUsers}"
                    Visibility="{Binding Source={StaticResource Model},Path=IsAdding,Converter={StaticResource ToInVisibilityConverter}}"
