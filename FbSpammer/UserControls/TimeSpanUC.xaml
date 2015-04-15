@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="FbSpammer.UserControls.TimeSpanUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             x:Name="local"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBox   HorizontalContentAlignment="Right"
+            Text="{Binding ElementName=local,Path=Hours,UpdateSourceTrigger=PropertyChanged}" Margin="5,5,0,5"
+                   ToolTip="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.hoursLabel}"/>
+        <TextBlock Grid.Column="1"  Margin="5,5,2,5" VerticalAlignment="Center"
+                   Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.hoursLabelm}"/>
+
+        <TextBox Grid.Column="2"  HorizontalContentAlignment="Right"
+                 Text="{Binding ElementName=local,Path=Minutes,UpdateSourceTrigger=PropertyChanged}"  Margin="5,5,0,5"
+                   ToolTip="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.minutesLabel}"/>
+        <TextBlock Grid.Column="3"  Margin="5,5,2,5" VerticalAlignment="Center"
+                   Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.minutesLabelm}"/>
+
+        <TextBox Grid.Column="4" HorizontalContentAlignment="Right"
+                 Text="{Binding ElementName=local,Path=Secondes,UpdateSourceTrigger=PropertyChanged}"  Margin="5,5,0,5"
+                 ToolTip="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.secondesLabel}"/>
+        <TextBlock Grid.Column="5"  Margin="5" VerticalAlignment="Center"
+                   Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.secondesLabelm}" />
+
+
+    </Grid>
+</UserControl>

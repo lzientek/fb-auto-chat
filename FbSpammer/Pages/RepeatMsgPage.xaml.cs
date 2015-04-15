@@ -29,17 +29,39 @@ namespace FbSpammer.Pages
         public RepeatMsgPage()
         {
             InitializeComponent();
-            
+            WindowHelper.GetMainWindow().Closing += Window_Closing;
         }
 
-        private void SaveOnClick(object sender, RoutedEventArgs e)
+        void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Model.Save();
         }
 
+        private void AddButtonOnClick(object sender, RoutedEventArgs e)
+        {
+            var obj = new RepeatMsgModel()
+            {
+                Interval = TimeSpanUc.TimeSpan,
+                Message = MsgTextBox.Text,
+                Name = NameTextBox.Text,
+                UserId = ToFbUser.SelectedUserId
+            };
+            Model.RepeatMsgs.Add(obj);
+            RepeatMsgListBox.SelectedItem = obj;
+        }
+
         private void AddOnClick(object sender, RoutedEventArgs e)
         {
-            Model.RepeatMsgs.Add(new RepeatMsgModel());
+            var newObj = new RepeatMsgModel {Name = FbSpammer.Resources.Unamed};
+
+            int i = 0;
+            while (Model.RepeatMsgs.Any(m => newObj.Name == m.Name))
+            {
+                i++;
+                newObj.Name = string.Format("{0}({1})", FbSpammer.Resources.Unamed, i);
+            }
+            Model.RepeatMsgs.Add(newObj);
+            RepeatMsgListBox.SelectedItem = newObj;
         }
 
         private void DeleteOnClick(object sender, RoutedEventArgs e)

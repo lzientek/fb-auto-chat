@@ -18,13 +18,12 @@ namespace FbSpammer.UserControls
     public partial class FbUserSelectUC : UserControl
     {
 
-
-
         public UserSelectViewModel Model { get { return ((UserSelectViewModel)Resources["Model"]); } }
 
         public FbUserSelectUC()
         {
             InitializeComponent();
+            FbApi_FriendLoad(null, null);
             WindowHelper.GetMainWindow().FbApi.UserConnector.FriendsLoaded += FbApi_FriendLoad;
             Model.PropertyChanged += Model_PropertyChanged;
         }

@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Fizzler;
 using Fizzler.Systems.HtmlAgilityPack;
 using HtmlAgilityPack;
 
@@ -15,13 +12,11 @@ namespace FbChatApi
 
         public string Email { get; set; }
         public string Password { get; set; }
-
-        public FbUser ActualUser { get; set; }
-
         public bool IsConnected { get; set; }
         public FbWebRequest WebRequest { get; set; }
         public MessageConnector MessageConnector { get; set; }
         public UserConnector UserConnector { get; set; }
+        
         public FbChatApi(string email, string password)
         {
             IsConnected = false;
@@ -83,6 +78,7 @@ namespace FbChatApi
                 return IsConnected = false;
             }
         }
+
         public event ConnectionTerminated ConnectionEnd;
 
         private void OnConnectionEnd()

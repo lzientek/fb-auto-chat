@@ -159,4 +159,25 @@
   <data name="userNameOrIdTip" xml:space="preserve">
     <value>Enter username or id from your friend.</value>
   </data>
+  <data name="hoursLabel" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="minutesLabel" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="secondesLabel" xml:space="preserve">
+    <value>secondes</value>
+  </data>
+  <data name="hoursLabelm" xml:space="preserve">
+    <value>h</value>
+  </data>
+  <data name="minutesLabelm" xml:space="preserve">
+    <value>m</value>
+  </data>
+  <data name="secondesLabelm" xml:space="preserve">
+    <value>s</value>
+  </data>
+  <data name="Unamed" xml:space="preserve">
+    <value>Unamed</value>
+  </data>
 </root>

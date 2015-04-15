@@ -30,7 +30,11 @@ namespace FbChatApi
             {
                 if (!Friends.ContainsKey(fbSmallUser.Key))
                 {
-                    Friends.Add(fbSmallUser.Key, fbSmallUser.Value);                    
+                    Friends.Add(fbSmallUser.Key, fbSmallUser.Value);
+                }
+                else
+                {
+                    Friends[fbSmallUser.Key] =fbSmallUser.Value;
                 }
             }
             OnFriendsLoaded();

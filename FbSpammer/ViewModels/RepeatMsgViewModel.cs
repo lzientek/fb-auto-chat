@@ -31,7 +31,7 @@ namespace FbSpammer.ViewModels
 
         private string _userId;
         private string _message;
-        private TimeSpan _interval;
+        private TimeSpan? _interval;
         private string _name;
 
         #region properties
@@ -58,7 +58,7 @@ namespace FbSpammer.ViewModels
             }
         }
 
-        public TimeSpan Interval
+        public TimeSpan? Interval
         {
             get { return _interval; }
             set
@@ -110,7 +110,7 @@ namespace FbSpammer.ViewModels
         {
             return messages.Select(m => new RepeatMsg
             {
-                Interval = m.Interval,
+                Interval = m.Interval ?? new TimeSpan(),
                 Message = m.Message,
                 Name = m.Name,
                 UserId = m.UserId

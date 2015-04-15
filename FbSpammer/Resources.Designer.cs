@@ -79,11 +79,47 @@ namespace FbSpammer {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à hours.
+        /// </summary>
+        public static string hoursLabel {
+            get {
+                return ResourceManager.GetString("hoursLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à h.
+        /// </summary>
+        public static string hoursLabelm {
+            get {
+                return ResourceManager.GetString("hoursLabelm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Message :.
         /// </summary>
         public static string MessageLabel {
             get {
                 return ResourceManager.GetString("MessageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à minutes.
+        /// </summary>
+        public static string minutesLabel {
+            get {
+                return ResourceManager.GetString("minutesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à m.
+        /// </summary>
+        public static string minutesLabelm {
+            get {
+                return ResourceManager.GetString("minutesLabelm", resourceCulture);
             }
         }
         
@@ -133,6 +169,24 @@ namespace FbSpammer {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à secondes.
+        /// </summary>
+        public static string secondesLabel {
+            get {
+                return ResourceManager.GetString("secondesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à s.
+        /// </summary>
+        public static string secondesLabelm {
+            get {
+                return ResourceManager.GetString("secondesLabelm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à To :.
         /// </summary>
         public static string SelectUserLabel {
@@ -147,6 +201,15 @@ namespace FbSpammer {
         public static string Settings {
             get {
                 return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Unamed.
+        /// </summary>
+        public static string Unamed {
+            get {
+                return ResourceManager.GetString("Unamed", resourceCulture);
             }
         }
         

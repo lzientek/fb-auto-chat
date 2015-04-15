@@ -10,13 +10,22 @@ using System.Xml.Serialization;
 
 namespace FbAutoChat.Core
 {
+    [Serializable]
     public class RepeatMsg
     {
         public string UserId { get; set; }
         public string Message { get; set; }
+
+        [XmlIgnore]
         public TimeSpan Interval { get; set; }
         public string Name { get; set; }
-        
+
+        [XmlElement("IntervalTicks")]
+        public long IntervalTicks
+        {
+            get { return Interval.Ticks; }
+            set { Interval = new TimeSpan(value); }
+        }
         public const string RepeatMsgXmlFile = "RepeatMsg.xml";
         
         public static void Save(IEnumerable<RepeatMsg> repeatMsgs)

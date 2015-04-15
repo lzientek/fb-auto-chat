@@ -53,27 +53,29 @@
             <!--name-->
             <TextBlock Grid.Column="1" Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.NameLabel}"/>
             <TextBox Grid.Row="0" Grid.Column="2" Margin="5"
-                     Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}" Name="NameTextBox" />
 
             <!--periode-->
             <TextBlock Grid.Row="1"  Grid.Column="1" 
                        Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.EveryTimeLabel}" />
-
+            <userControls:TimeSpanUC Grid.Row="1" Grid.Column="2" TimeSpan="{Binding Interval}" x:Name="TimeSpanUc" />
+            
             <!--select a user-->
             <TextBlock Grid.Row="2"  Grid.Column="1" VerticalAlignment="Center"
                        Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.SelectUserLabel}" />
 
-            <userControls:FbUserSelectUC Grid.Row="2" Grid.Column="2" Margin="5" SelectedUserId="{Binding UserId,UpdateSourceTrigger=PropertyChanged}" />
+            <userControls:FbUserSelectUC x:Name="ToFbUser" Grid.Row="2" Grid.Column="2" Margin="5" SelectedUserId="{Binding UserId,UpdateSourceTrigger=PropertyChanged}" />
 
             <!--message-->
             <TextBlock Grid.Row="3"  Grid.Column="1" 
                        Text="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.MessageLabel}" />
             <TextBox Grid.Row="3" Grid.Column="2" AcceptsReturn="True" VerticalContentAlignment="Top" Height="75" Margin="5"
-                     Text="{Binding Message}"/>
+                     Text="{Binding Message}" Name="MsgTextBox"/>
 
             <!--save-->
-            <Button Grid.Row="4" Grid.Column="2" Click="SaveOnClick" Margin="5,5,5,0"
-                Content="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.SaveLabel}"/>
+            <Button Grid.Row="4" Grid.Column="2" Click="AddButtonOnClick" Margin="5,5,5,0"
+                    Visibility="{Binding ElementName=RepeatMsgListBox,Path=SelectedItem,Converter={StaticResource NullToVisibilityConverter}}"
+                Content="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.Unamed}"/>
 
         </Grid>
     </Grid>

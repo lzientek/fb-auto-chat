@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Btl.Controls.MyControls">
+      <HintPath>..\..\..\..\..\Downloads\TimeSpanControl\TimeSpanControl\Btl\Controls\bin\Release\Btl.Controls.MyControls.dll</HintPath>
+    </Reference>
     <Reference Include="Elysium, Version=2.0.1042.4, Culture=neutral, PublicKeyToken=afa220db249e5b15, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Elysium.Theme.2.0.4\lib\net45\Elysium.dll</HintPath>
@@ -41,6 +44,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -62,6 +67,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converter\NullToInVisibilityConverter.cs" />
     <Compile Include="Converter\BoolToInVisibilityConverter.cs" />
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="Converter\PathToImageConverter.cs" />
@@ -76,6 +82,9 @@
     </Compile>
     <Compile Include="UserControls\FbUserSelectUC.xaml.cs">
       <DependentUpon>FbUserSelectUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TimeSpanUC.xaml.cs">
+      <DependentUpon>TimeSpanUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RepeatMsgViewModel.cs" />
@@ -112,6 +121,10 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Page Include="UserControls\FbUserSelectUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TimeSpanUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

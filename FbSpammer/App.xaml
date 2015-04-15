@@ -11,6 +11,7 @@
             <converter:PathToImageConverter x:Key="ToImageConverter"/>
             <converter:BoolToVisibilityConverter x:Key="ToVisibilityConverter"/>
             <converter:BoolToInVisibilityConverter x:Key="ToInVisibilityConverter"/>
+            <converter:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
             <ResourceDictionary.MergedDictionaries>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
