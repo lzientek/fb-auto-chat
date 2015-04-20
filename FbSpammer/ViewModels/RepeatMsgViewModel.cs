@@ -31,11 +31,12 @@ namespace FbSpammer.ViewModels
 
         private string _userId;
         private string _message;
-        private TimeSpan? _interval;
+        private TimeSpan _interval;
         private string _name;
 
         #region properties
 
+        public long Id { get; set; }
         public string UserId
         {
             get { return _userId; }
@@ -58,7 +59,7 @@ namespace FbSpammer.ViewModels
             }
         }
 
-        public TimeSpan? Interval
+        public TimeSpan Interval
         {
             get { return _interval; }
             set
@@ -83,6 +84,16 @@ namespace FbSpammer.ViewModels
 
         #endregion
 
+        public RepeatMsgModel()
+        {
+            var g = new Guid().ToByteArray();
+            long v = 0;
+            for (int i = 0; i < g.Length; i++)
+            {
+                v += g.Length * (int)Math.Pow(10, i);
+            }
+            Id = v;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -103,17 +114,20 @@ namespace FbSpammer.ViewModels
                 Interval = m.Interval,
                 Message = m.Message,
                 Name = m.Name,
-                UserId = m.UserId
+                UserId = m.UserId,
+                Id = m.Id
             });
         }
         internal static IEnumerable<RepeatMsg> ToRepeatMsg(this IEnumerable<RepeatMsgModel> messages)
         {
             return messages.Select(m => new RepeatMsg
             {
-                Interval = m.Interval ?? new TimeSpan(),
+                Interval = m.Interval,
                 Message = m.Message,
                 Name = m.Name,
-                UserId = m.UserId
+                UserId = m.UserId,
+                Id = m.Id
+
             });
         }
     }

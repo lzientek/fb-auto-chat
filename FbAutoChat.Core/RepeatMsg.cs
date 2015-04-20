@@ -13,6 +13,7 @@ namespace FbAutoChat.Core
     [Serializable]
     public class RepeatMsg
     {
+        public long Id { get; set; }
         public string UserId { get; set; }
         public string Message { get; set; }
 

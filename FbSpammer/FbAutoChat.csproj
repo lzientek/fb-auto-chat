@@ -80,6 +80,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SendChecker\SendComponent.cs" />
+    <Compile Include="SendChecker\SendMessage.cs" />
+    <Compile Include="SendChecker\SendMessageRepeat.cs" />
     <Compile Include="UserControls\FbUserSelectUC.xaml.cs">
       <DependentUpon>FbUserSelectUC.xaml</DependentUpon>
     </Compile>
