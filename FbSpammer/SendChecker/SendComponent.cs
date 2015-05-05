@@ -13,6 +13,7 @@ namespace FbSpammer.SendChecker
         public List<SendMessageRepeat> Messages { get; set; }
         public bool IsSending { get; set; }
         private Timer _timer = new Timer(1000);
+        public bool IsStarted { get; set; }
 
 
         public SendComponent()
@@ -22,10 +23,17 @@ namespace FbSpammer.SendChecker
 
         public void Start()
         {
+            IsStarted = true;
             _timer.Elapsed += SendIfNeeded;
             _timer.Start();
         }
 
+        public void Stop()
+        {
+            IsStarted = false;
+            _timer.Elapsed -= SendIfNeeded;
+            _timer.Stop();
+        }
         public void Add(IEnumerable<RepeatMsgModel> msgModels)
         {
             foreach (var repeatMsgModel in msgModels)
@@ -64,5 +72,9 @@ namespace FbSpammer.SendChecker
             IsSending = false;
         }
 
+        public void Clear()
+        {
+            Messages.Clear();
+        }
     }
 }

@@ -127,5 +127,17 @@ namespace FbChatApi
 
 
         #endregion
+
+        public HttpWebRequest CreateGetRequest(string url, List<HtmlInput> htmlInputs)
+        {
+            NameValueCollection outgoingQueryString = HttpUtility.ParseQueryString(String.Empty);
+            foreach (var input in htmlInputs)
+            {
+                outgoingQueryString.Add(input.Name, input.Value);
+            }
+            
+            string postdata = outgoingQueryString.ToString();
+            return CreateGetRequest(string.Format("{0}?{1}", url, postdata));
+        }
     }
 }

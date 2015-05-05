@@ -16,13 +16,16 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Rectangle Height="30" Width="5" Fill="#FF50C325" Visibility="{Binding Source={StaticResource Model},Path=IsConnected,Converter={StaticResource ToVisibilityConverter}}"/>
-            <Image Grid.Column="1" Height="30" Source="{Binding Source={StaticResource Model},Path=ActualUser.ProfilePicture,Converter={StaticResource ToImageConverter}}" />
-            <TextBlock Grid.Column="2" Text="{Binding Source={StaticResource Model},Path=ActualUser.Name}" FontSize="15" Foreground="#FF086B99" VerticalAlignment="Center" Padding="7,0,17,0" />
+            <Button Content="Start" Click="StartSend_OnClick" />
+            <Rectangle Grid.Column="2" Height="30" Width="5" Fill="#FF50C325" Visibility="{Binding Source={StaticResource Model},Path=IsConnected,Converter={StaticResource ToVisibilityConverter}}"/>
+            <Image Grid.Column="3" Height="30" Source="{Binding Source={StaticResource Model},Path=ActualUser.ProfilePicture,Converter={StaticResource ToImageConverter}}" />
+            <TextBlock Grid.Column="4" Text="{Binding Source={StaticResource Model},Path=ActualUser.Name}" FontSize="15" Foreground="#FF086B99" VerticalAlignment="Center" Padding="7,0,17,0" />
         </Grid>
     </metro:Window.TitleBar>
     <Grid>
@@ -31,7 +34,7 @@
                 <pages:ProgramMsgPage />
             </TabItem>
             <TabItem Header="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.RepeatSpamLabel}">
-                <pages:RepeatMsgPage/>
+                <pages:RepeatMsgPage x:Name="RepeatMsgPage"/>
             </TabItem>
             <TabItem Header="{Binding Source={StaticResource LocalizedStrings},Path=LocalizedResources.Settings}">
                 <pages:SettingsPage/>

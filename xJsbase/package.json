@@ -6,5 +6,9 @@
   "author": {
     "name": "lucas",
     "email": ""
-  }
+  }, "dependencies": { 
+     "cheerio": "^0.18.0", 
+     "request": "^2.53.0" 
+   }
+
 }

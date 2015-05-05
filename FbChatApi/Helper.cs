@@ -26,8 +26,7 @@ namespace FbChatApi
             var k = DateTime.Now.ToTimeStamp();
             var rand = new Random();
             var l = Math.Floor(rand.NextDouble() * 4294967295);
-            var m = clientID;
-            return string.Format("<{0}:{1}-{2}@mail.projektitan.com>", k, l, m);
+            return string.Format("<{0}:{1}-{2}@mail.projektitan.com>", k, l, clientID);
         }
         public static string GetFrom(string str, string startToken, string endToken)
         {

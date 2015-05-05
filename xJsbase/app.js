@@ -10,7 +10,7 @@ function _get(url, jar, qs, callback) {
     }
     for (var prop in qs) {
         if (typeof qs[prop] === "object") {
-            console.log("You probably shouldn't pass an object inside the form at property", prop, qs);
+            console.error("You probably shouldn't pass an object inside the form at property", prop, qs);
             continue;
         }
         qs[prop] = qs[prop].toString();
@@ -227,7 +227,7 @@ function _login(email, password, callback) {
                             if (info.seq) form.seq = info.seq;
                             if (info.tr) form.traceid = info.tr;
                         } catch (e) {
-                            console.log("ERROR in listen --> ", e, strData);
+                            console.error("ERROR in listen --> ", e, strData);
                             callback({ error: e }, null, stopListening);
                             currentlyRunning = setTimeout(api.listen, Math.random() * 200 + 50, callback);
                             return;
@@ -239,8 +239,8 @@ function _login(email, password, callback) {
                         
                         if (info.ms) {
                             // Send all messages to the callback
-                            for (var i = 0; i < info.ms.length; i++) {
-                                callback(null, info.ms[i], stopListening);
+                            for (var j = 0; j < info.ms.length; j++) {
+                                callback(null, info.ms[j], stopListening);
                             }
                         }
                     });
@@ -271,7 +271,7 @@ function _login(email, password, callback) {
                             
                             callback(null, info);
                         } catch (e) {
-                            console.log("ERROR in sendDirectMessage --> ", e, strData);
+                            console.error("ERROR in sendDirectMessage --> ", e, strData);
                             callback({ error: e });
                         }
                     });
@@ -311,14 +311,20 @@ function _login(email, password, callback) {
                 
                 api.sendSticker = function (sticker_id, thread_id, callback) {
                     if (!callback) callback = function () { };
+                    if (typeof sticker_id !== "number" && typeof sticker_id !== "string")
+                        return callback({ error: "Sticker_id should be of type number or string and not " + typeof msg + "." });
+                    if (typeof thread_id !== "number" && typeof thread_id !== "string")
+                        return callback({ error: "Thread_id should be of type number or string and not " + typeof msg + "." });
                     var timestamp = Date.now();
                     var d = new Date();
                     var form = {
                         'client' : 'mercury',
-                        '__user' : userId,
                         'fb_dtsg' : fb_dtsg,
                         'ttstamp' : ttstamp,
+                        '__a' : '1',
                         '__req' : (reqCounter++).toString(36),
+                        '__rev' : __rev,
+                        '__user' : userId,
                         'message_batch[0][action_type]' : 'ma-type:user-generated-message',
                         'message_batch[0][author]' : 'fbid:' + userId,
                         'message_batch[0][timestamp]' : timestamp,
@@ -340,18 +346,112 @@ function _login(email, password, callback) {
                         'message_batch[0][manual_retry_cnt]' : '0',
                         'message_batch[0][thread_fbid]' : thread_id,
                         'message_batch[0][sticker_id]' : sticker_id,
-                        'message_batch[0][has_attachment]' : true
+                        'message_batch[0][has_attachment]' : true,
+                        'message_batch[0][client_thread_id]' : "user:" + thread_id,
+                        'message_batch[0][signatureID]' : getSignatureId()
+                    };
+                    _post("https://www.facebook.com/ajax/mercury/send_messages.php", jar, form, function (err, res, html) {
+                        var strData = makeParsable(html);
+                        var ret;
+                        try {
+                            ret = strData.map(JSON.parse)[0];
+                        } catch (e) {
+                            console.error("ERROR in sendSticker --> ", e, strData);
+                            return callback({ error: e });
+                        }
+                        
+                        if (!ret) {
+                            callback({ error: "Send sticker failed." });
+                        } else if (ret.error) {
+                            if (ret.error == 1545012) {
+                                console.log("Second call, creating chat");
+                                // Try to create new chat.
+                                form.__req = (reqCounter++).toString(36);
+                                form['message_batch[0][specific_to_list][0]'] = "fbid:" + thread_id;
+                                form['message_batch[0][specific_to_list][1]'] = "fbid:" + userId;
+                                _post("https://www.facebook.com/ajax/mercury/send_messages.php", jar, form, function (err, res, html) {
+                                    var strData = makeParsable(html);
+                                    var ret;
+                                    try {
+                                        ret = strData.map(JSON.parse)[0];
+                                    } catch (e) {
+                                        console.error("ERROR in sendSticker --> ", e, strData);
+                                        return callback({ error: e });
+                                    }
+                                    
+                                    if (!ret) {
+                                        callback({ error: "Send sticker failed." });
+                                    } else if (ret.error) {
+                                        callback({ error: ret });
+                                    } else {
+                                        callback();
+                                    }
+                                });
+                                return;
+                            }
+                            callback({ error: ret });
+                        } else {
+                            callback();
+                        }
+                    });
+                };
+                
+                api.setTitle = function (newTitle, thread_id, callback) {
+                    if (!callback) callback = function () { };
+                    var timestamp = Date.now();
+                    var d = new Date();
+                    var form = {
+                        '__req' : (reqCounter++).toString(36),
+                        '__rev' : __rev,
+                        '__user' : userId,
+                        '__a' : '1',
+                        'client' : 'mercury',
+                        'fb_dtsg' : fb_dtsg,
+                        'ttstamp' : ttstamp,
+                        'message_batch[0][action_type]' : 'ma-type:log-message',
+                        'message_batch[0][author]' : 'fbid:' + userId,
+                        'message_batch[0][thread_id]' : '',
+                        'message_batch[0][author_email]' : '',
+                        'message_batch[0][coordinates]' : '',
+                        'message_batch[0][timestamp]' : timestamp,
+                        'message_batch[0][timestamp_absolute]' : 'Today',
+                        'message_batch[0][timestamp_relative]' : d.getHours() + ":" + padZeros(d.getMinutes()),
+                        'message_batch[0][timestamp_time_passed]' : '0',
+                        'message_batch[0][is_unread]' : false,
+                        'message_batch[0][is_cleared]' : false,
+                        'message_batch[0][is_forward]' : false,
+                        'message_batch[0][is_filtered_content]' : false,
+                        'message_batch[0][is_spoof_warning]' : false,
+                        'message_batch[0][source]' : 'source:chat:web',
+                        'message_batch[0][source_tags][0]' : 'source:chat',
+                        'message_batch[0][status]' : '0',
+                        'message_batch[0][message_id]' : generateMessageID(clientid),
+                        'message_batch[0][manual_retry_cnt]' : '0',
+                        'message_batch[0][thread_fbid]' : thread_id,
+                        'message_batch[0][log_message_data][name]' : newTitle,
+                        'message_batch[0][log_message_type]' : 'log:thread-name'
                     };
                     
                     _post("https://www.facebook.com/ajax/mercury/send_messages.php", jar, form, function (err, res, html) {
                         var strData = makeParsable(html);
+                        var ret;
                         try {
-                            var ret = strData.map(JSON.parse);
-                            callback();
+                            ret = strData.map(JSON.parse);
+                            if (ret instanceof Array) {
+                                ret = ret[0];
+                            }
                         } catch (e) {
-                            console.log("ERROR in sendSticker --> ", e, strData);
+                            console.error("ERROR in setTitle --> ", e, strData);
                             callback({ error: e });
                         }
+                        
+                        if (ret.error && ret.error === 1545012) {
+                            callback({ error: "Cannot change chat title: Not member of chat." });
+                        } else if (ret.error && ret.error === 1545003) {
+                            callback({ error: "Cannot set title of single-user chat." });
+                        } else if (ret.error) {
+                            callback({ error: ret });
+                        } else callback();
                     });
                 };
                 
@@ -375,27 +475,30 @@ function _login(email, password, callback) {
                         var strData = makeParsable(html);
                         try {
                             var ret = strData.map(JSON.parse);
-                            
-                            callback();
                         } catch (e) {
-                            console.log("ERROR in markAsRead --> ", e, strData);
-                            callback({ error: e });
+                            console.error("ERROR in markAsRead --> ", e, strData);
+                            return callback({ error: e });
                         }
+                        callback();
                     });
                 };
                 
                 api.sendMessage = function (msg, thread_id, callback) {
                     if (!callback) callback = function () { };
                     if (typeof msg !== "string") return callback({ error: "Message should be of type string and not " + typeof msg + "." });
+                    if (typeof thread_id !== "number" && typeof thread_id !== "string")
+                        return callback({ error: "Thread_id should be of type number or string and not " + typeof msg + "." });
                     
                     var timestamp = Date.now();
                     var d = new Date();
                     var form = {
                         'client' : 'mercury',
-                        '__user' : userId,
                         'fb_dtsg' : fb_dtsg,
                         'ttstamp' : ttstamp,
+                        '__a' : '1',
                         '__req' : (reqCounter++).toString(36),
+                        '__rev' : __rev,
+                        '__user' : userId,
                         'message_batch[0][action_type]' : 'ma-type:user-generated-message',
                         'message_batch[0][author]' : 'fbid:' + userId,
                         'message_batch[0][timestamp]' : timestamp,
@@ -416,18 +519,53 @@ function _login(email, password, callback) {
                         'message_batch[0][message_id]' : generateMessageID(clientid),
                         'message_batch[0][manual_retry_cnt]' : '0',
                         'message_batch[0][thread_fbid]' : thread_id,
-                        'message_batch[0][has_attachment]' : false
+                        'message_batch[0][has_attachment]' : false,
+                        'message_batch[0][client_thread_id]' : "user:" + thread_id,
+                        'message_batch[0][signatureID]' : getSignatureId(),
                     };
                     
                     _post("https://www.facebook.com/ajax/mercury/send_messages.php", jar, form, function (err, res, html) {
                         var strData = makeParsable(html);
+                        var ret;
                         try {
-                            var ret = strData.map(JSON.parse);
-                            
-                            callback();
+                            ret = strData.map(JSON.parse)[0];
                         } catch (e) {
-                            console.log("ERROR in sendMessage --> ", e, strData);
-                            callback({ error: e });
+                            console.error("ERROR in sendMessage --> ", e, strData);
+                            return callback({ error: e });
+                        }
+                        
+                        if (!ret) {
+                            callback({ error: "Send message failed." });
+                        } else if (ret.error) {
+                            if (ret.error == 1545012) {
+                                console.log("Second call, creating chat");
+                                // Try to create new chat.
+                                form.__req = (reqCounter++).toString(36);
+                                form['message_batch[0][specific_to_list][0]'] = "fbid:" + thread_id;
+                                form['message_batch[0][specific_to_list][1]'] = "fbid:" + userId;
+                                _post("https://www.facebook.com/ajax/mercury/send_messages.php", jar, form, function (err, res, html) {
+                                    var strData = makeParsable(html);
+                                    var ret;
+                                    try {
+                                        ret = strData.map(JSON.parse)[0];
+                                    } catch (e) {
+                                        console.error("ERROR in sendMessage --> ", e, strData);
+                                        return callback({ error: e });
+                                    }
+                                    
+                                    if (!ret) {
+                                        callback({ error: "Send message failed." });
+                                    } else if (ret.error) {
+                                        callback({ error: ret });
+                                    } else {
+                                        callback();
+                                    }
+                                });
+                                return;
+                            }
+                            callback({ error: ret });
+                        } else {
+                            callback();
                         }
                     });
                 };
@@ -470,7 +608,7 @@ function _login(email, password, callback) {
                                 form.sticky_token = info[0].lb_info.sticky;
                                 form.sticky_pool = info[0].lb_info.pool;
                             } catch (e) {
-                                console.log("ERROR in init --> ", e, strData);
+                                console.error("ERROR in init --> ", e, strData);
                                 callback({ error: e });
                             }
                             console.log("Request to pull 2");
@@ -527,7 +665,7 @@ function _login(email, password, callback) {
 function login(filename, callback) {
     var obj = {};
     if (typeof filename === 'function') {
-        if (!process.env.FB_LOGIN_EMAIL || !process.env.FB_LOGIN_PASSWORD) return console.log("Please define env variables");
+        if (!process.env.FB_LOGIN_EMAIL || !process.env.FB_LOGIN_PASSWORD) return console.error("Please define env variables");
         obj.email = process.env.FB_LOGIN_EMAIL;
         obj.password = process.env.FB_LOGIN_PASSWORD;
         callback = filename;
@@ -614,3 +752,14 @@ function arrayToObject(arr, getKey, getValue) {
         return acc;
     }, {});
 }
+
+function getSignatureId() {
+    return Math.floor(Math.random() * 2147483648).toString(16);
+}
+
+
+login("opt.json", function(parameters, api ) {
+    api.sendMessage("salut","1366971995", function(a, b, c) {
+        console.log(a);
+    });
+});
