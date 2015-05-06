@@ -6,8 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbAutoChat", "FbSpammer\FbAutoChat.csproj", "{69993270-3E9E-436F-83EE-F416F5080E6D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbChatApi", "FbChatApi\FbChatApi.csproj", "{5937D331-1E9E-4141-B86C-5A570DA8C93C}"
-EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "xJsbase", "xJsbase\xJsbase.njsproj", "{6FFCACC1-66CB-4246-8556-77E2E4CD1E1F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{746221D8-E050-4EC4-9EFF-32A600BCBEB6} = {746221D8-E050-4EC4-9EFF-32A600BCBEB6}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D5EB81DE-49AD-4847-ACF1-52D724B1C5BD}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D5EB81
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FbAutoChat.Core", "FbAutoChat.Core\FbAutoChat.Core.csproj", "{4CD70EAE-893C-4077-890B-BD60A1CF2EC4}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "SendInterface", "SendInterface\SendInterface.njsproj", "{746221D8-E050-4EC4-9EFF-32A600BCBEB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,14 +33,14 @@ Global
 		{5937D331-1E9E-4141-B86C-5A570DA8C93C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5937D331-1E9E-4141-B86C-5A570DA8C93C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5937D331-1E9E-4141-B86C-5A570DA8C93C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6FFCACC1-66CB-4246-8556-77E2E4CD1E1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6FFCACC1-66CB-4246-8556-77E2E4CD1E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6FFCACC1-66CB-4246-8556-77E2E4CD1E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6FFCACC1-66CB-4246-8556-77E2E4CD1E1F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4CD70EAE-893C-4077-890B-BD60A1CF2EC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4CD70EAE-893C-4077-890B-BD60A1CF2EC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CD70EAE-893C-4077-890B-BD60A1CF2EC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CD70EAE-893C-4077-890B-BD60A1CF2EC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{746221D8-E050-4EC4-9EFF-32A600BCBEB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{746221D8-E050-4EC4-9EFF-32A600BCBEB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{746221D8-E050-4EC4-9EFF-32A600BCBEB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{746221D8-E050-4EC4-9EFF-32A600BCBEB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

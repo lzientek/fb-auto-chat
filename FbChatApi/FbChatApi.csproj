@@ -60,7 +60,7 @@
     <Compile Include="FbModel\FbUser.cs" />
     <Compile Include="FbWebRequest.cs" />
     <Compile Include="Helper.cs" />
-    <Compile Include="Connectors\MessageConnector.cs" />
+    <Compile Include="Connectors\JsApiConnector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Connectors\UserConnector.cs" />
   </ItemGroup>

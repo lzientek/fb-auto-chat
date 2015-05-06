@@ -16,7 +16,7 @@ namespace FbSpammer.SendChecker
         {
             if (FbChatConnector.FbChat == null || !FbChatConnector.FbChat.IsConnected)
                 return false;
-            var result = await FbChatConnector.FbChat.MessageConnector.SendMessage(Message, UserId);
+            var result = await FbChatConnector.FbChat.JsApiConnector.SendMessage(Message, UserId);
             LastSend = DateTime.Now;
             return true;
         }

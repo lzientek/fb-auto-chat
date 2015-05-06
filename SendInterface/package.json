@@ -1,0 +1,13 @@
+{
+  "name": "SendInterface",
+  "version": "0.0.0",
+  "description": "SendInterface",
+  "main": "server.js",
+  "author": {
+    "name": "lucas",
+    "email": ""
+  },
+  "dependencies": {
+    "facebook-chat-api": "^0.1.8"
+  }
+}

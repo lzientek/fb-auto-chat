@@ -17,7 +17,7 @@ namespace FbChatApi
         public string Password { get; set; }
         public bool IsConnected { get; set; }
         public FbWebRequest WebRequest { get; set; }
-        public MessageConnector MessageConnector { get; set; }
+        public JsApiConnector JsApiConnector { get; set; }
         public UserConnector UserConnector { get; set; }
 
         public FbChatApi(string email, string password)
@@ -26,7 +26,7 @@ namespace FbChatApi
             Email = email;
             Password = password;
             WebRequest = new FbWebRequest();
-            MessageConnector = new MessageConnector(WebRequest);
+            JsApiConnector = new JsApiConnector(WebRequest);
             UserConnector = new UserConnector(WebRequest);
 
         }
@@ -69,63 +69,9 @@ namespace FbChatApi
                 }
 
                 GetValuesFromPage(page);
-
+                await JsApiConnector.SetLogin(Email, Password);
                 UserConnector.LoadSomeFriends(page);
                 IsConnected = true;
-
-                //do a lot of pull request
-                var l2 = new List<HtmlInput>(){
-                    new HtmlInput(){Name ="grammar_version",Value = grammar_version},
-                    new HtmlInput(){Name ="__user",Value = MessageConnector.UserId},
-                    new HtmlInput(){Name ="__a",Value = "1"},
-                    new HtmlInput(){Name ="__req",Value = (2).ToBase(36)},
-                };
-                var nullStateRequest =
-                     WebRequest.CreateGetRequest("https://www.facebook.com/ajax/browse/null_state.php", l2);
-                rep = await nullStateRequest.GetResponseAsync();
-
-
-                var l3 = new List<HtmlInput>(){
-                    new HtmlInput(){Name ="grammar_version",Value = grammar_version},
-                    new HtmlInput(){Name ="__user",Value = MessageConnector.UserId},
-                    new HtmlInput(){Name ="__a",Value = "1"},
-                    new HtmlInput(){Name ="__req",Value = (3).ToBase(36)},
-                    new HtmlInput(){Name ="__rev",Value = MessageConnector.Rev},
-                    new HtmlInput(){Name ="reason",Value = "6"},
-                    new HtmlInput(){Name ="fb_dtsg",Value = MessageConnector.FbDtsg},
-                };
-                var recoRequest =
-                     WebRequest.CreateGetRequest("https://www.facebook.com/ajax/presence/reconnect.php", l3);
-                rep = await recoRequest.GetResponseAsync();
-
-                //pull requests
-                var userChannel = "p_" + UserConnector.UserId;
-                var l4 = new List<HtmlInput>(){
-                        new HtmlInput {Name = "channel",Value = userChannel},
-                        new HtmlInput {Name = "seq",Value = "0"},
-                        new HtmlInput {Name = "partition",Value = "-2"},
-                        new HtmlInput {Name = "clientid",Value = MessageConnector.Clientid},
-                        new HtmlInput {Name = "viewer_uid",Value = UserConnector.UserId},
-                        new HtmlInput {Name = "state",Value = "active"},
-                        new HtmlInput {Name = "format",Value = "json"},
-                        new HtmlInput {Name = "idle",Value = "0"},
-                        new HtmlInput {Name = "cap",Value = "8"},
-                };
-                var pullRequest =
-                     WebRequest.CreateGetRequest("https://0-edge-chat.facebook.com/pull", l4);
-                rep = await pullRequest.GetResponseAsync();
-                using (StreamReader reader = new StreamReader(rep.GetResponseStream(), Encoding.UTF8))
-                {
-                    var json = reader.ReadToEnd();
-                    l4.Add(new HtmlInput() { Name = "sticky_token", Value = Helper.GetFrom(json, "sticky\":\"", "\",") });
-                    l4.Add(new HtmlInput() { Name = "sticky_pool", Value = Helper.GetFrom(json, "pool\":\"", "\"}") });
-                    l4.Add(new HtmlInput() { Name = "wtc", Value = "0,0,0.000,0,0" });
-                }
-                var pullRequest2 =
-                     WebRequest.CreateGetRequest("https://0-edge-chat.facebook.com/pull", l4);
-                rep = await pullRequest2.GetResponseAsync();
-
-                //await SyncRequest();
 
                 OnConnectionEnd();
                 return IsConnected;
@@ -142,10 +88,10 @@ namespace FbChatApi
 //sync request
             var l5 = new List<HtmlInput>()
             {
-                new HtmlInput() {Name = "__user", Value = MessageConnector.UserId},
+                new HtmlInput() {Name = "__user", Value = JsApiConnector.UserId},
                 new HtmlInput() {Name = "__a", Value = "1"},
                 new HtmlInput() {Name = "__req", Value = (4).ToBase(36)},
-                new HtmlInput() {Name = "__rev", Value = MessageConnector.Rev},
+                new HtmlInput() {Name = "__rev", Value = JsApiConnector.Rev},
                 new HtmlInput() {Name = "lastSync", Value = (DateTime.Now.ToTimeStamp() - 60).ToString()},
             };
             var syncRequest = WebRequest.CreateGetRequest("https://www.facebook.com/notifications/sync/", l5);
@@ -154,15 +100,15 @@ namespace FbChatApi
             //thread sync request
             var l6 = new List<HtmlInput>()
             {
-                new HtmlInput() {Name = "__user", Value = MessageConnector.UserId},
+                new HtmlInput() {Name = "__user", Value = JsApiConnector.UserId},
                 new HtmlInput() {Name = "__a", Value = "1"},
                 new HtmlInput() {Name = "__req", Value = (5).ToBase(36)},
-                new HtmlInput() {Name = "__rev", Value = MessageConnector.Rev},
-                new HtmlInput() {Name = "ttstamp", Value = MessageConnector.Ttstamp},
+                new HtmlInput() {Name = "__rev", Value = JsApiConnector.Rev},
+                new HtmlInput() {Name = "ttstamp", Value = JsApiConnector.Ttstamp},
                 new HtmlInput() {Name = "client", Value = "mercury"},
                 new HtmlInput() {Name = "folders[0]", Value = "inbox"},
                 new HtmlInput() {Name = "last_action_timestamp", Value = "0"},
-                new HtmlInput() {Name = "fb_dtsg", Value = MessageConnector.FbDtsg},
+                new HtmlInput() {Name = "fb_dtsg", Value = JsApiConnector.FbDtsg},
             };
             var threadsyncRequest =
                 await WebRequest.CreatePostRequestAsync("https://www.facebook.com/ajax/mercury/thread_sync.php", l6);
@@ -192,11 +138,11 @@ namespace FbChatApi
                 ttstamp += ((int)fbDtsg[i]).ToString();
             }
             ttstamp += '2';
-            MessageConnector.Clientid = clientid;
-            MessageConnector.FbDtsg = fbDtsg;
-            MessageConnector.Ttstamp = ttstamp;
-            MessageConnector.UserId = userId;
-            MessageConnector.Rev = rev;
+            JsApiConnector.Clientid = clientid;
+            JsApiConnector.FbDtsg = fbDtsg;
+            JsApiConnector.Ttstamp = ttstamp;
+            JsApiConnector.UserId = userId;
+            JsApiConnector.Rev = rev;
             UserConnector.UserId = userId;
             grammar_version = Helper.GetFrom(page, "grammar_version\":\"", "\"");
         }
